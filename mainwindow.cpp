@@ -13,8 +13,20 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_btn_1_clicked()
+std::string equation;
+
+void MainWindow::on_btn_clear_clicked()
 {
+    if (equation == "")
+    {
+        ui->text_display->clear();
+    }
+    else
+    {
+        equation = "";
+        ui->text_display->setPlainText("");
+    }
+
 
 }
 
