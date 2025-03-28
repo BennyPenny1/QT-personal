@@ -339,7 +339,7 @@ color: #ff5b00;</string>
      <string>=</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="text_display">
+   <widget class="QTextEdit" name="display_text">
     <property name="geometry">
      <rect>
       <x>180</x>
@@ -399,7 +399,7 @@ color: #1d1d1d;</string>
     </property>
    </widget>
    <zorder>calc_back</zorder>
-   <zorder>text_display</zorder>
+   <zorder>display_text</zorder>
    <zorder>btn_1</zorder>
    <zorder>btn_2</zorder>
    <zorder>btn_3</zorder>
@@ -427,7 +427,7 @@ color: #1d1d1d;</string>
      <x>0</x>
      <y>0</y>
      <width>530</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>

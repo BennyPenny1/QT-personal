@@ -18,12 +18,6 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_btn_clear_clicked();
-
-    void on_btn_0_clicked();
-
-    void on_btn_1_clicked();
-
     void on_btn_C_clicked();
 
     void on_btn_CE_clicked();
@@ -44,7 +38,33 @@ private slots:
 
     void on_btn_equal_clicked();
 
+    void on_btn_0_clicked();
+
+    void on_btn_1_clicked();
+
+    void on_btn_2_clicked();
+
+    void on_btn_3_clicked();
+
+    void on_btn_4_clicked();
+
+    void on_btn_5_clicked();
+
+    void on_btn_6_clicked();
+
+    void on_btn_7_clicked();
+
+    void on_btn_8_clicked();
+
+    void on_btn_9_clicked();
+
+    void input(char c);
+
 private:
     Ui::MainWindow *ui;
+
+    std::string equation;
+    QString back_log;
+    std::string answer;
 };
 #endif // MAINWINDOW_H
