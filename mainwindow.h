@@ -20,6 +20,30 @@ public:
 private slots:
     void on_btn_clear_clicked();
 
+    void on_btn_0_clicked();
+
+    void on_btn_1_clicked();
+
+    void on_btn_C_clicked();
+
+    void on_btn_CE_clicked();
+
+    void on_btn_back_clicked();
+
+    void on_btn_dot_clicked();
+
+    void on_btn_neg_clicked();
+
+    void on_btn_plus_clicked();
+
+    void on_btn_minus_clicked();
+
+    void on_btn_mult_clicked();
+
+    void on_btn_div_clicked();
+
+    void on_btn_equal_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
