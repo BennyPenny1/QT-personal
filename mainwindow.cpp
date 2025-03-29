@@ -63,6 +63,17 @@ void MainWindow::on_btn_9_clicked()
 }
 void MainWindow::on_btn_dot_clicked()
 {
+    for (int i = equation.size(); i > 0; i--)
+    {
+        if (equation[i] == '.')
+        {
+            return;
+        }
+        else if (equation[i] == '+' || equation[i] == '-' || equation[i] == '*' || equation[i] == '/')
+        {
+            break;
+        }
+    }
     input('.');
 }
 
@@ -106,7 +117,7 @@ void MainWindow::on_btn_neg_clicked()
         {
             if (equation[i] == '+' || equation[i] == '/' || equation[i] == '*')
             {
-                equation.insert(i, 1, '-');
+                equation.insert(i+1, 1, '-');
                 break;
             }
             else if (equation[i] == '-')
@@ -143,11 +154,52 @@ void MainWindow::on_btn_plus_clicked()
 {
     if (equation.size() > 0)
     {
-        if (equation[equation.size() - 1] == '+' || equation[equation.size() - 1] == '-' || equation[equation.size() - 1] == '*' || equation[equation.size() - 1] == '/')
+        if (equation.back() == '+' ||  equation.back() == '*' || equation.back() == '/')
         {
-            equation.erase(equation.size() - 1, 1);
+            equation.pop_back();
+            input('+');
         }
-        input('+');
+        else if (equation.back() == '-')
+        {
+            if (equation.size() < 2)
+            {
+                return;
+            }
+            else if (equation[equation.size() - 2] == '-' || equation[equation.size() - 2] == '+' ||  equation[equation.size() - 2] == '*' || equation[equation.size() - 2] == '/')
+            {
+                equation[equation.size() - 2] = '+';
+                ui->display_text->setHtml(back_log + QString::fromStdString(equation));
+            }
+            else
+            {
+                equation.pop_back();
+                input('+');
+            }
+        }
+        else if (equation.back() == '.')
+        {
+            if (equation.size() < 2)
+            {
+                return;
+            }
+            else if (equation[equation.size() - 2] == '+' || equation[equation.size() - 2] == '*' || equation[equation.size() - 2] == '/')
+            {
+                equation[equation.size() - 2] = '+';
+                ui->display_text->setHtml(back_log + QString::fromStdString(equation));
+            }
+            else if (equation[equation.size() - 2] == '-')
+            {
+                if (equation[equation.size() - 3] == '+' || equation[equation.size() - 3] == '-' || equation[equation.size() - 3] == '*' || equation[equation.size() - 3] == '/')
+                {
+                    equation[equation.size() - 3] = '+';
+                    ui->display_text->setHtml(back_log + QString::fromStdString(equation));
+                }
+            }
+        }
+        else
+        {
+            input('+');
+        }
     }
     else
     {
@@ -160,11 +212,54 @@ void MainWindow::on_btn_minus_clicked()
 {
     if (equation.size() > 0)
     {
-        if (equation[equation.size() - 1] == '+' || equation[equation.size() - 1] == '-' || equation[equation.size() - 1] == '*' || equation[equation.size() - 1] == '/')
+        if (equation.back() == '+' ||  equation.back() == '*' || equation.back() == '/')
         {
-            equation.erase(equation.size() - 1, 1);
+            equation.pop_back();
+            input('-');
         }
-        input('-');
+
+
+        else if (equation.back() == '-')
+        {
+            if (equation.size() < 2)
+            {
+                return;
+            }
+            else if (equation[equation.size() - 2] == '-' || equation[equation.size() - 2] == '+' ||  equation[equation.size() - 2] == '*' || equation[equation.size() - 2] == '/')
+            {
+                equation[equation.size() - 2] = '-';
+                ui->display_text->setHtml(back_log + QString::fromStdString(equation));
+            }
+            else
+            {
+                equation.pop_back();
+                input('-');
+            }
+        }
+        else if (equation.back() == '.')
+        {
+            if (equation.size() < 2)
+            {
+                return;
+            }
+            else if (equation[equation.size() - 2] == '+' || equation[equation.size() - 2] == '*' || equation[equation.size() - 2] == '/')
+            {
+                equation[equation.size() - 2] = '+';
+                ui->display_text->setHtml(back_log + QString::fromStdString(equation));
+            }
+            else if (equation[equation.size() - 2] == '-')
+            {
+                if (equation[equation.size() - 3] == '+' || equation[equation.size() - 3] == '-' || equation[equation.size() - 3] == '*' || equation[equation.size() - 3] == '/')
+                {
+                    equation[equation.size() - 3] = '+';
+                    ui->display_text->setHtml(back_log + QString::fromStdString(equation));
+                }
+            }
+        }
+        else
+        {
+            input('-');
+        }
     }
     else
     {
@@ -177,11 +272,52 @@ void MainWindow::on_btn_mult_clicked()
 {
     if (equation.size() > 0)
     {
-        if (equation[equation.size() - 1] == '+' || equation[equation.size() - 1] == '-' || equation[equation.size() - 1] == '*' || equation[equation.size() - 1] == '/')
+        if (equation.back() == '+' ||  equation.back() == '*' || equation.back() == '/')
         {
             equation.erase(equation.size() - 1, 1);
+            input('*');
         }
-        input('*');
+        else if (equation.back() == '-')
+        {
+            if (equation.size() < 2)
+            {
+                return;
+            }
+            else if (equation[equation.size() - 2] == '-' || equation[equation.size() - 2] == '+' ||  equation[equation.size() - 2] == '*' || equation[equation.size() - 2] == '/')
+            {
+                equation[equation.size() - 2] = '*';
+                ui->display_text->setHtml(back_log + QString::fromStdString(equation));
+            }
+            else
+            {
+                equation.pop_back();
+                input('*');
+            }
+        }
+        else if (equation.back() == '.')
+        {
+            if (equation.size() < 2)
+            {
+                return;
+            }
+            else if (equation[equation.size() - 2] == '+' || equation[equation.size() - 2] == '*' || equation[equation.size() - 2] == '/')
+            {
+                equation[equation.size() - 2] = '+';
+                ui->display_text->setHtml(back_log + QString::fromStdString(equation));
+            }
+            else if (equation[equation.size() - 2] == '-')
+            {
+                if (equation[equation.size() - 3] == '+' || equation[equation.size() - 3] == '-' || equation[equation.size() - 3] == '*' || equation[equation.size() - 3] == '/')
+                {
+                    equation[equation.size() - 3] = '+';
+                    ui->display_text->setHtml(back_log + QString::fromStdString(equation));
+                }
+            }
+        }
+        else
+        {
+            input('*');
+        }
     }
     else
     {
@@ -194,11 +330,52 @@ void MainWindow::on_btn_div_clicked()
 {
     if (equation.size() > 0)
     {
-        if (equation[equation.size() - 1] == '+' || equation[equation.size() - 1] == '-' || equation[equation.size() - 1] == '*' || equation[equation.size() - 1] == '/')
+        if (equation.back() == '+' ||  equation.back() == '*' || equation.back() == '/')
         {
             equation.erase(equation.size() - 1, 1);
+            input('/');
         }
-        input('/');
+        else if (equation.back() == '-')
+        {
+            if (equation.size() < 2)
+            {
+                return;
+            }
+            else if (equation[equation.size() - 2] == '-' || equation[equation.size() - 2] == '+' ||  equation[equation.size() - 2] == '*' || equation[equation.size() - 2] == '/')
+            {
+                equation[equation.size() - 2] = '/';
+                ui->display_text->setHtml(back_log + QString::fromStdString(equation));
+            }
+            else
+            {
+                equation.pop_back();
+                input('/');
+            }
+        }
+        else if (equation.back() == '.')
+        {
+            if (equation.size() < 2)
+            {
+                return;
+            }
+            else if (equation[equation.size() - 2] == '+' || equation[equation.size() - 2] == '*' || equation[equation.size() - 2] == '/')
+            {
+                equation[equation.size() - 2] = '+';
+                ui->display_text->setHtml(back_log + QString::fromStdString(equation));
+            }
+            else if (equation[equation.size() - 2] == '-')
+            {
+                if (equation[equation.size() - 3] == '+' || equation[equation.size() - 3] == '-' || equation[equation.size() - 3] == '*' || equation[equation.size() - 3] == '/')
+                {
+                    equation[equation.size() - 3] = '+';
+                    ui->display_text->setHtml(back_log + QString::fromStdString(equation));
+                }
+            }
+        }
+        else
+        {
+            input('/');
+        }
     }
     else
     {
@@ -216,10 +393,14 @@ void MainWindow::on_btn_equal_clicked()
         equation += answer;
         ui->display_text->setHtml(back_log + QString::fromStdString(answer));
     }
-    else if ((equation[equation.size() - 1] == '+'|| equation[equation.size() - 1] == '-' || equation[equation.size() - 1] == '*' || equation[equation.size() - 1] == '/'))
+    else if (equation.back() == '+'|| equation.back() == '-' || equation.back() == '*' || equation.back() == '/')
     {
         equation += answer;
         ui->display_text->setHtml(back_log + QString::fromStdString(equation));
+        return;
+    }
+    else if (equation.back() == '.')
+    {
         return;
     }
     else
