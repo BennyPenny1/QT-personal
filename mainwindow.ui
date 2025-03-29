@@ -345,7 +345,7 @@ color: #ff5b00;</string>
       <x>180</x>
       <y>100</y>
       <width>161</width>
-      <height>101</height>
+      <height>121</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -427,7 +427,7 @@ color: #1d1d1d;</string>
      <x>0</x>
      <y>0</y>
      <width>530</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

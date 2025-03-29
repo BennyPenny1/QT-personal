@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <vector>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -64,7 +65,9 @@ private:
     Ui::MainWindow *ui;
 
     std::string equation;
-    QString back_log;
+    std::vector<QString> back_log_vector;
+    int back_log_lines = 0;
     std::string answer;
+    QString back_log;
 };
 #endif // MAINWINDOW_H

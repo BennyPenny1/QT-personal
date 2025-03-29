@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -76,6 +77,9 @@ void MainWindow::on_btn_CE_clicked()
 {
     back_log.clear();
     equation = "";
+    answer = "";
+    back_log_lines = 0;
+    back_log_vector.clear();
     ui->display_text->setHtml(back_log + QString::fromStdString(equation));
 }
 
@@ -92,40 +96,46 @@ void MainWindow::on_btn_back_clicked()
 
 void MainWindow::on_btn_neg_clicked()
 {
-    for (int i = equation.size() - 1; i >= 0; i--)
+    if (equation.size() == 0)
     {
-        if (equation[i] == '+' || equation[i] == '/' || equation[i] == '*')
+        input('-');
+    }
+    else
+    {
+        for (int i = equation.size() - 1; i >= 0; i--)
         {
-            equation.insert(i, 1, '-');
-            break;
-        }
-        else if (equation[i] == '-')
-        {
-            if (i == 0)
-            {
-                equation.erase(i, 1);
-                break;
-            }
-            if (equation[i - 1] == '-' || equation[i] == '+' || equation[i] == '/' || equation[i] == '*')
-            {
-                equation.erase(i, 1);
-                break;
-            }
-            else
+            if (equation[i] == '+' || equation[i] == '/' || equation[i] == '*')
             {
                 equation.insert(i, 1, '-');
                 break;
             }
-        }
-        if (i == 0)
-        {
-            equation.insert(i, 1, '-');
-            break;
-        }
+            else if (equation[i] == '-')
+            {
+                if (i == 0)
+                {
+                    equation.erase(i, 1);
+                    break;
+                }
+                if (equation[i - 1] == '-' || equation[i] == '+' || equation[i] == '/' || equation[i] == '*')
+                {
+                    equation.erase(i, 1);
+                    break;
+                }
+                else
+                {
+                    equation.insert(i, 1, '-');
+                    break;
+                }
+            }
+            if (i == 0)
+            {
+                equation.insert(i, 1, '-');
+                break;
+            }
 
+        }
+        ui->display_text->setHtml(back_log + QString::fromStdString(equation));
     }
-    ui->display_text->setHtml(back_log + QString::fromStdString(equation));
-
 }
 
 
@@ -137,6 +147,11 @@ void MainWindow::on_btn_plus_clicked()
         {
             equation.erase(equation.size() - 1, 1);
         }
+        input('+');
+    }
+    else
+    {
+        equation += answer;
         input('+');
     }
 }
@@ -151,6 +166,11 @@ void MainWindow::on_btn_minus_clicked()
         }
         input('-');
     }
+    else
+    {
+        equation += answer;
+        input('-');
+    }
 }
 
 void MainWindow::on_btn_mult_clicked()
@@ -161,6 +181,11 @@ void MainWindow::on_btn_mult_clicked()
         {
             equation.erase(equation.size() - 1, 1);
         }
+        input('*');
+    }
+    else
+    {
+        equation += answer;
         input('*');
     }
 }
@@ -175,6 +200,11 @@ void MainWindow::on_btn_div_clicked()
         }
         input('/');
     }
+    else
+    {
+        equation += answer;
+        input('/');
+    }
 }
 
 
@@ -184,9 +214,12 @@ void MainWindow::on_btn_equal_clicked()
     if (equation.size() == 0)
     {
         equation += answer;
+        ui->display_text->setHtml(back_log + QString::fromStdString(answer));
     }
-    else if (equation[equation.size() - 1] == '+'|| equation[equation.size() - 1] == '-' || equation[equation.size() - 1] == '*' || equation[equation.size() - 1] == '/')
+    else if ((equation[equation.size() - 1] == '+'|| equation[equation.size() - 1] == '-' || equation[equation.size() - 1] == '*' || equation[equation.size() - 1] == '/'))
     {
+        equation += answer;
+        ui->display_text->setHtml(back_log + QString::fromStdString(equation));
         return;
     }
     else
@@ -209,10 +242,12 @@ void MainWindow::on_btn_equal_clicked()
                     chunk.clear();
                 }
             }
-            else if (equation[equation.size() - 1] == '+'|| equation[equation.size() - 1] == '*' || equation[equation.size() - 1] == '/')
+            else if (equation[i] == '+'|| equation[i] == '*' || equation[i] == '/')
             {
                 numbers.push_back(std::stod(chunk));
                 operators.push_back(equation[i]);
+                /*std::cout << equation[i] << "\n";
+                std::cout << chunk << "\n";*/
                 chunk.clear();
             }
             else
@@ -220,29 +255,50 @@ void MainWindow::on_btn_equal_clicked()
                 chunk += equation[i];
             }
         }
+        numbers.push_back(std::stod(chunk));
 
+        /*std::cout << "numbers list: ";
+        for (int i = 0; i < numbers.size(); i++){
+            std::cout << i << ": " << numbers[i] << ", ";
+        }
+        std::cout << "\n";*/
+
+        int it_adjst = 0; // iterator adjustment: when replacing numbers, throughs off iterator
         for (int i = 0; i < operators.size(); i++)
         {
             if (operators[i] == '/')
             {
-                double temp_num = numbers[i] / numbers[i+1];
-                numbers.erase(numbers.begin() + i);
-                numbers.erase(numbers.begin() + i);
-                numbers.insert(numbers.begin() + i, temp_num);
+                // std::cout << numbers[i] << operators[i] << numbers[i+1] << "= ";
+                double temp_num = numbers[i - it_adjst] / numbers[i+1 - it_adjst];
+                // std::cout << temp_num <<"\n";
+                numbers.erase(numbers.begin() + i - it_adjst);
+                numbers.erase(numbers.begin() + i - it_adjst);
+                numbers.insert(numbers.begin() + i - it_adjst, temp_num);
+                it_adjst++;
             }
             else if (operators[i] == '*')
             {
-                double temp_num = numbers[i] * numbers[i+1];
-                numbers.erase(numbers.begin() + i);
-                numbers.erase(numbers.begin() + i);
-                numbers.insert(numbers.begin() + i, temp_num);
+                // std::cout << numbers[i] << operators[i] << numbers[i+1] << "= ";
+                double temp_num = numbers[i - it_adjst] * numbers[i+1 - it_adjst];
+                // std::cout << temp_num <<"\n";
+                numbers.erase(numbers.begin() + i - it_adjst);
+                numbers.erase(numbers.begin() + i - it_adjst);
+                numbers.insert(numbers.begin() + i - it_adjst, temp_num);
+                it_adjst++;
             }
         }
+
+        /*std::cout << "numbers after mult/div: ";
+        for (int i = 0; i < numbers.size(); i++){
+            std::cout << i << ": " << numbers[i] << ", ";
+        }
+        std::cout << "\n";*/
 
         for (int i = 0; i < operators.size(); i++)
         {
             if (operators[i] == '+')
             {
+                // std::cout << numbers[0] << operators[i] << numbers[1] << "\n";
                 double temp_num = numbers[0] + numbers[1];
                 numbers.erase(numbers.begin());
                 numbers.erase(numbers.begin());
@@ -250,15 +306,33 @@ void MainWindow::on_btn_equal_clicked()
             }
             else if (operators[i] == '-')
             {
+                // std::cout << numbers[0] << operators[i] << numbers[1] << "\n";
                 double temp_num = numbers[0] - numbers[1];
                 numbers.erase(numbers.begin());
                 numbers.erase(numbers.begin());
                 numbers.insert(numbers.begin(), temp_num);
             }
         }
-        answer = std::to_string(numbers[0]);
-        back_log += QString::fromStdString(equation) + "<br>";
-        QString html = back_log + "<div align='right'>" + QString::fromStdString(answer) + "</div>";
-        ui->display_text->setHtml(html);
+        QString clean = QString::number(numbers[0], 'g', 15);
+        answer = clean.toStdString();
+        back_log_vector.push_back(QString::fromStdString(equation) + "<div align='right'>" + QString::fromStdString(answer) + "</div><div align='left'></div>");
+        back_log_lines += 1;
+        qDebug() << back_log_lines << "\n";
+        if (back_log_lines > 2)
+        {
+            back_log_vector.erase(back_log_vector.begin());
+            back_log.clear();
+            for (int i = 0; i < 2; i++)
+            {
+                back_log += back_log_vector[i];
+            }
+            back_log_lines -= 1;
+        }
+        else
+        {
+            back_log += QString::fromStdString(equation) + "<div align='right'>" + QString::fromStdString(answer) + "</div><div align='left'></div>";
+        }
+        ui->display_text->setHtml(back_log);
+        equation.clear();
     }
 }
