@@ -113,7 +113,7 @@ void MainWindow::on_btn_neg_clicked()
     }
     else
     {
-        for (int i = equation.size() - 1; i >= 0; i--)
+        for (int i = equation.size() - 1; i > 0; i--)
         {
             if (equation[i] == '+' || equation[i] == '/' || equation[i] == '*')
             {

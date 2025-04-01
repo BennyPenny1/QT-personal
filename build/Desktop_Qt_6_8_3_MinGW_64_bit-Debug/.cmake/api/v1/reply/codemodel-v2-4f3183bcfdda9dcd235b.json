@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-730d8e404f28ef0f3906.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "calc_app",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "calc_app::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-calc_app-Debug-077aa74894657e303025.json",
+					"name" : "calc_app",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "calc_app_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-calc_app_autogen-Debug-d893f80f3cdd6da08c7f.json",
+					"name" : "calc_app_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "calc_app_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-calc_app_autogen_timestamp_deps-Debug-eb9f40f0e4967951b8b4.json",
+					"name" : "calc_app_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/benny/Repos/QT-personal/build/Desktop_Qt_6_8_3_MinGW_64_bit-Debug",
+		"source" : "C:/Users/benny/Repos/QT-personal"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}
