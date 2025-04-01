@@ -1,0 +1,42 @@
+# Ignore build directory
+build/
+**/CMakeFiles/
+**/CMakeCache.txt
+**/Makefile
+**/cmake_install.cmake
+
+# Qt-specific
+*.autosave
+*.pro.user
+*.pro.user.*
+*.qmlproject.user
+*.qbs.user
+
+# Qt Creator project settings
+*.creator.*
+*.creator
+
+# Build system logs
+*.ninja
+*.ninja_log
+*.ninja_deps
+
+# Binaries
+*.exe
+*.dll
+*.so
+*.dylib
+*.out
+*.app
+
+# Temporary files
+*.obj
+*.o
+*.a
+*.log
+*.tmp
+*.bak
+
+# IDE stuff
+.vscode/
+.idea/
