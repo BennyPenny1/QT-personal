@@ -17,6 +17,7 @@ Window {
             width: 300
             height: 150
             x: 50; y: 50
+
             Rectangle {
                 width: 50
                 height: 50
