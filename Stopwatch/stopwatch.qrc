@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/images">
-        <file>images/background.png</file>
-        <file>images/bigHand.png</file>
-        <file>images/smallHand.png</file>
-    </qresource>
-</RCC>
