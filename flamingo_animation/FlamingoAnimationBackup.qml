@@ -1,17 +1,18 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
 
-Window {
-    id: window
-    width: 500
-    height: 750
-    visible: true
-    title: qsTr("Animated Flamingo")
-    color: "black"
+Item {
+    // width should be 2/3 height - range
 
+    width: 66
+    height: 136
 
     Image {
         id: image
+
+        width: parent.width
+        height: parent.height - range
+
 
         // range must be divisable by 2
         // range must be divisable by the translation
@@ -19,9 +20,9 @@ Window {
         // (range / translation) * (fastInterval * 2) must not exceed (FrameInterval * 9) / 2
 
         property int frameInterval: 220 // how fast you want the bird to change frames (220 is recomended)
-        property int range: 72 // how many pixels you want the bird to bob up and down
+        property int range: 36 // how many pixels you want the bird to bob up and down
         property int fastInterval: 11 // how fast each translation happens
-        property int translation: 2 // how far you want the bird to move up or down every interval
+        property int translation: 1 // how far you want the bird to move up or down every interval
 
         // for bird to start at bottom: upDownMovement: range / 2; goingUp: true frameIndex: 6
         // for bird start at top: upDownMovement: -(range / 2); goingUp: false; frameIndex: 0
@@ -49,7 +50,7 @@ Window {
             id: fastTimer
             interval: image.fastInterval; repeat: true; running: false;
             onTriggered: {
-                console.log("fast: " + image.upDownMovement)
+                //console.log("fast: " + image.upDownMovement)
                 if (image.goingUp == true) {
                    // if  fast hits medium boundary
                    if (image.upDownMovement == -(image.range / 2) / 3) {
@@ -83,7 +84,7 @@ Window {
             id: mediumTimer
             interval: image.fastInterval * 2; repeat: true; running: false;
             onTriggered: {
-                console.log("medium: " + image.upDownMovement)
+                //console.log("medium: " + image.upDownMovement)
 
                 if (image.goingUp == true) {
                    // if  medium hits slow boundary
@@ -132,7 +133,7 @@ Window {
             id: slowTimer
             interval: image.fastInterval * 3; repeat: true; running: image.goingUp;
             onTriggered: {
-                console.log("slow: " + image.upDownMovement)
+                //console.log("slow: " + image.upDownMovement)
 
                 if (image.goingUp == true) {
                    // if slow timer hits sync boundary
@@ -178,7 +179,7 @@ Window {
             id: pauseTimer
             interval: (image.frameInterval * 9) / 2 - (image.range / image.translation) * (image.fastInterval * 2); repeat: true; running: false;
             onTriggered: {
-                console.log("pause: " + image.upDownMovement)
+                //console.log("pause: " + image.upDownMovement)
 
                 image.goingUp = true
                 image.upDownMovement -= image.translation
@@ -190,7 +191,7 @@ Window {
             id: syncTimer
             interval: 10; repeat: true; running: !image.goingUp;
             onTriggered: {
-                console.log("sync: " + image.upDownMovement)
+                //console.log("sync: " + image.upDownMovement)
                 if (image.frameIndex == 1) {
                    image.goingUp = false
                    image.upDownMovement += image.translation
@@ -201,3 +202,5 @@ Window {
         }
     }
 }
+
+

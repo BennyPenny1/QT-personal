@@ -1,16 +1,17 @@
 <RCC>
     <qresource prefix="/images">
-        <file>images/frame1transp.png</file>
-        <file>images/frame2transp.png</file>
-        <file>images/frame3transp.png</file>
-        <file>images/frame4transp.png</file>
-        <file>images/frame5transp.png</file>
-        <file>images/frame6transp.png</file>
-        <file>images/frame7transp.png</file>
-        <file>images/frame8transp.png</file>
-        <file>images/frame9transp.png</file>
+        <file>images/AnimationFrame1.png</file>
+        <file>images/AnimationFrame2.png</file>
+        <file>images/AnimationFrame3.png</file>
+        <file>images/AnimationFrame4.png</file>
+        <file>images/AnimationFrame5.png</file>
+        <file>images/AnimationFrame6.png</file>
+        <file>images/AnimationFrame7.png</file>
+        <file>images/AnimationFrame8.png</file>
+        <file>images/AnimationFrame9.png</file>
     </qresource>
     <qresource prefix="/">
-        <file>FlamingoLoadingAnimation.qml</file>
+        <file>FlamingoAnimation.qml</file>
+        <file>component_test.qml</file>
     </qresource>
 </RCC>
